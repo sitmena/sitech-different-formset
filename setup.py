@@ -7,11 +7,11 @@ base_dir = os.path.dirname(__file__)
 
 
 setup(
-      name='django-datatables-view',
+      name='sitech-django-views',
       version=version,
       description='Sitech django view',
       long_description=open(os.path.join(base_dir, "README.md")).read(),
-      url='https://bitbucket.org/pigletto/django-datatables-view',
+      url='https://github.com/sitmena/sitech-django-views',
       classifiers=[
           'Environment :: Web Environment',
           'Framework :: Django',
