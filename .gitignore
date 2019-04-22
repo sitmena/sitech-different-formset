@@ -5,7 +5,7 @@
 *.exe
 *.o
 *.so
-*.pyc
+mm.pyc
 
 # pycharm project files
 .idea
