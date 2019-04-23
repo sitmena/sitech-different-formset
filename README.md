@@ -1,20 +1,20 @@
 
-	-- Sitech Views ---+---- Base ----------+-- View
+	-- Sitech Views ---+---- Base ----------+-- 1) View
 			   |                    |
-			   | 			+-- RedirectView  
+			   | 			+-- 2) RedirectView  
 			   | 		        |	                              
-			   | 			+-- TemplateView      
+			   | 			+-- 3) TemplateView      
 			   | 
 			   |
-			   +--- Detail ---------+-- DetailView  
+			   +--- Detail ---------+-- 4) DetailView  
 			   |	
 			   |
-			   +---- Edit ----------+-- CreateView
+			   +---- Edit ----------+-- 5) CreateView
 					        |
-					        +-- UpdateView  
+					        +-- 6) UpdateView  
 					        |	                              
-					        +-- DeleteView
+					        +-- 7) DeleteView
 					        |
-					        +-- FormView    
+					        +-- 8) FormView    
 					        |
-					        +-- MultipleFormView         
+					        +-- 9) MultipleFormView         
