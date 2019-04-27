@@ -7,11 +7,11 @@ base_dir = os.path.dirname(__file__)
 
 
 setup(
-      name='sitech-django-views',
+      name='sitech-different-formset',
       version=version,
-      description='Sitech django view',
+      description='Sitech different formset',
       long_description=open(os.path.join(base_dir, "README.md")).read(),
-      url='https://github.com/sitmena/sitech-django-views',
+      url='https://github.com/sitmena/sitech-different-formset',
       classifiers=[
           'Environment :: Web Environment',
           'Framework :: Django',
@@ -27,7 +27,7 @@ setup(
           'Programming Language :: Python :: 3.6',
           'Programming Language :: Python :: 3.7',
       ],
-      keywords='Sitech django view',
+      keywords='Sitech different formset',
       author='Abdelhadi Abu-Shamleh',
       author_email='a.abushamleh@sit-mena.com',
       license='BSD',
