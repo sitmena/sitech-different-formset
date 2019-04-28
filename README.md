@@ -14,8 +14,16 @@ from sitech_different_formset import different_formset_factory
 TestFormSet = different_formset_factory(Form1, Form2, Form3)
 formset = TestFormSet()
 
+############
 for form in formset:
 	print(form.as_table())
+
+############
+print(formset.Form1.field_name)	
+
+############
+{{ form.CreateUserForm.email|as_crispy_field:"bootstrap4" }}	
+	
 
 ```
 
