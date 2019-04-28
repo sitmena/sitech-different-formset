@@ -11,9 +11,11 @@ def different_formset_factory(*form_classes):
 
 class DifferentFormSet:
     """
-    A collection of instances of the different Form class.
-    """
-    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None, error_class=ErrorList, form_kwargs=None):
+        A collection of instances of the different Form class.
+        """
+
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None, error_class=ErrorList,
+                 form_kwargs=None):
         self.is_bound = data is not None or files is not None
         self.prefix = prefix or self.get_default_prefix()
         self.auto_id = auto_id
@@ -25,12 +27,9 @@ class DifferentFormSet:
         self._errors = None
         self._non_form_errors = None
 
-    def __str__(self):
-        return self.as_table()
-
     def __iter__(self):
         """Yield the forms in the order they should be rendered."""
-        return iter(self.forms)
+        return iter(self.forms.values())
 
     def __getitem__(self, form_name):
         """Return the form at the given index, based on the rendering order."""
@@ -49,7 +48,9 @@ class DifferentFormSet:
     @cached_property
     def forms(self):
         """Instantiate forms at first property access."""
-        forms = [self._construct_form(form_class, **self.get_form_kwargs(form_class.__name__)) for form_class in self.form_classes]
+        forms = {}
+        for form_class in self.form_classes:
+            forms[form_class.__name__] = self._construct_form(form_class, **self.get_form_kwargs(form_class.__name__))
         return forms
 
     def get_form_kwargs(self, form_name):
@@ -106,7 +107,7 @@ class DifferentFormSet:
         if not self.is_bound:
             return False
 
-        for form in self.forms:
+        for form in self:
             if not form.is_valid():
                 return False
         return True
@@ -119,7 +120,7 @@ class DifferentFormSet:
         if not self.is_bound:  # Stop further processing.
             return
 
-        for form in self.forms:
+        for form in self:
             form_errors = form.errors
             self._errors.append(form_errors)
         self.clean()
@@ -135,7 +136,7 @@ class DifferentFormSet:
 
     def has_changed(self):
         """Return True if data in any form differs from initial."""
-        return any(form.has_changed() for form in self.forms)
+        return any(form.has_changed() for form in self)
 
     def add_prefix(self, form_name):
         return '%s-%s' % (self.prefix, form_name)
@@ -145,13 +146,13 @@ class DifferentFormSet:
         Return True if the formset needs to be multipart, i.e. it
         has FileInput, or False otherwise.
         """
-        return any(form.is_multipart() for form in self.forms)
+        return any(form.is_multipart() for form in self)
 
     @property
     def media(self):
         """Return all media required to render the widgets on this formset."""
         media = Media()
-        for form in self.forms:
+        for form in self:
             media = media + form.media
         return media
 
@@ -166,4 +167,3 @@ class DifferentFormSet:
     def as_ul(self):
         "Return this formset rendered as HTML <li>s."
         return ' '.join(form.as_ul() for form in self)
-
