@@ -1,10 +1,16 @@
 from django.forms.utils import ErrorList, ErrorDict
 from django.forms.widgets import Media
 from django.utils.functional import cached_property
+from django.forms import modelform_factory
 
 
-def different_formset_factory(*form_classes):
+def different_formset_factory(*forms):
     """Return a FormSet for the given form class."""
+    form_classes = []
+    for form in forms:
+        if isinstance(form, dict):
+            form = modelform_factory(**form)
+        form_classes.append(form)
     attrs = {'form_classes': form_classes}
     return type('DifferentFormSet', (DifferentFormSet,), attrs)
 
@@ -14,8 +20,7 @@ class DifferentFormSet:
         A collection of instances of the different Form class.
         """
 
-    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None, error_class=ErrorList,
-                 form_kwargs=None):
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None, error_class=ErrorList, form_kwargs=None):
         self.is_bound = data is not None or files is not None
         self.prefix = prefix or self.get_default_prefix()
         self.auto_id = auto_id
