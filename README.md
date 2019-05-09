@@ -14,7 +14,7 @@ Run the [pip](https://pip.pypa.io/en/stable/) command to install the latest vers
 # in views.py
 from sitech_different_formset import different_formset_factory
 
-TestFormSet = different_formset_factory(Form1, Form2, {'model': User, 'fields': ['first_name', 'last_name']})
+TestFormSet = different_formset_factory(Form1, Form2, {'model': User, 'fields': ['field1_name', 'field2_name']})
 formset = TestFormSet()
 
 for form in formset:
@@ -26,7 +26,7 @@ print(formset.UserForm.field_name)
 
 
 # in template.html
-{{ form.CreateUserForm.email|as_crispy_field:"bootstrap4" }}		
+{{ form.Form1.field_name|as_crispy_field:"bootstrap4" }}		
 
 ```
 
