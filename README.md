@@ -5,7 +5,7 @@
 Run the [pip](https://pip.pypa.io/en/stable/) command to install the latest version:
 
 ```bash
-   pip install git+https://github.com/sitmena/sitech-different-formset.git
+   pip install git+https://github.com/sitmena/sitech-different-formset.git@v1.0
 ```
 
 ## Usage
