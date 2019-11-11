@@ -20,13 +20,14 @@ class DifferentFormSet:
         A collection of instances of the different Form class.
         """
 
-    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None, error_class=ErrorList, form_kwargs=None):
+    def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None, initial=None, instances=None, error_class=ErrorList, form_kwargs=None):
         self.is_bound = data is not None or files is not None
         self.prefix = prefix or self.get_default_prefix()
         self.auto_id = auto_id
         self.data = data or {}
         self.files = files or {}
         self.initial = initial
+        self.instances = instances
         self.form_kwargs = form_kwargs or {}
         self.error_class = error_class
         self._errors = None
@@ -81,8 +82,15 @@ class DifferentFormSet:
         if self.initial and 'initial' not in kwargs:
             try:
                 defaults['initial'] = self.initial[form_class.__name__]
-            except IndexError:
+            except KeyError:
                 pass
+
+        if self.instances and 'instance' not in kwargs:
+            try:
+                defaults['instance'] = self.instances[form_class.__name__]
+            except KeyError:
+                pass
+
         defaults.update(kwargs)
         form = form_class(**defaults)
         return form
