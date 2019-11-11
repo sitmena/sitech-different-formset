@@ -1,3 +1,4 @@
+
 #  Sitech-different-formset
 A formset is a layer of abstraction to work with diffrent forms on the same page.
 
@@ -16,19 +17,19 @@ Run the [pip](https://pip.pypa.io/en/stable/) command to install the latest vers
 from sitech_different_formset import different_formset_factory
 
 TestFormSet = different_formset_factory(Form1, Form2, {'model': User, 'fields': ['field1_name', 'field2_name']})
-formset = TestFormSet()
+formset = TestFormSet(request.POST, initil={'Form1': ..., 'UserForm': ...}, instances={'UserForm': ...} )
 
 for form in formset:
 	print(form.as_table())
 
 
-print(formset.Form1.field_name)	
-print(formset.UserForm.field_name)
+print(formset.Form1)	
+print(formset.UserForm)
 
 
 # in template.html
-{{ form.Form1.field_name|as_crispy_field:"bootstrap4" }}		
-{{ form.UserForm.field_name|as_crispy_field:"bootstrap4" }}
+{{ formset.Form1.field_name|as_crispy_field:"bootstrap4" }}		
+{{ formset.UserForm.field_name|as_crispy_field:"bootstrap4" }}
 ```
 
 
